@@ -40,11 +40,6 @@ const BrandDashboard = () => {
               <span className="text-lg sm:text-xl font-heading font-bold text-foreground">SochBox AI</span>
             </Link>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              {!isMobile && (
-                <Button variant="ghost" size="sm" asChild>
-                  <Link to="/community">Community</Link>
-                </Button>
-              )}
               <Button 
                 variant="ghost" 
                 size="sm" 

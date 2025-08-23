@@ -40,11 +40,6 @@ const CreatorDashboard = () => {
               <span className="text-lg sm:text-xl font-heading font-bold text-foreground">SochBox AI</span>
             </Link>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              {!isMobile && (
-                <Button variant="ghost" size="sm" asChild>
-                  <Link to="/community">Community</Link>
-                </Button>
-              )}
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -108,6 +103,7 @@ const CreatorDashboard = () => {
                 Community
               </Link>
             </Button>
+
           </nav>
         </aside>
 
@@ -227,17 +223,17 @@ const CreatorDashboard = () => {
                     { name: "Alex Chen", score: "94.2", rank: 1 },
                     { name: "Sarah Miller", score: "91.8", rank: 2 },
                     { name: "Mike Johnson", score: "88.5", rank: 3 },
-                    { name: "You", score: "85.0", rank: 4, highlight: true },
+                    { name: "You", score: "85.0", rank: 4 },
                     { name: "Emma Davis", score: "82.3", rank: 5 }
                   ].map((creator) => (
-                    <div key={creator.rank} className={`flex items-center justify-between p-2 rounded ${creator.highlight ? 'bg-primary/10 border border-primary/20' : ''}`}>
+                    <div key={creator.rank} className="group flex items-center justify-between p-2 rounded hover:bg-accent/50 transition-all duration-200">
                       <div className="flex items-center space-x-2 min-w-0">
-                        <span className="text-sm font-medium w-4 flex-shrink-0">{creator.rank}</span>
-                        <span className={`text-sm truncate ${creator.highlight ? 'font-semibold text-primary' : ''}`}>
+                        <span className="text-sm font-medium w-4 flex-shrink-0 group-hover:text-primary transition-colors">{creator.rank}</span>
+                        <span className="text-sm truncate hover:text-primary hover:font-semibold transition-all duration-200 cursor-pointer group-hover:scale-105">
                           {creator.name}
                         </span>
                       </div>
-                      <span className="text-sm font-medium flex-shrink-0">{creator.score}</span>
+                      <span className="text-sm font-medium flex-shrink-0 group-hover:text-primary transition-colors">{creator.score}</span>
                     </div>
                   ))}
                 </CardContent>

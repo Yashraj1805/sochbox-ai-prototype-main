@@ -13,15 +13,27 @@ import {
   TrendingUp,
   Lightbulb,
   Users,
-  Send
+  Send,
+  LayoutDashboard,
+  FileText,
+  ImageIcon,
+  BarChart3,
+  Menu,
+  X
 } from "lucide-react";
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Community = () => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [postText, setPostText] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const posts = [
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+
+
+  const [posts, setPosts] = useState([
     {
       id: 1,
       author: "Alex Chen",
@@ -66,7 +78,15 @@ const Community = () => {
       comments: 23,
       isLiked: false
     }
-  ];
+  ]);
+
+  const handleLike = (postId: number) => {
+    setPosts(posts.map(post => 
+      post.id === postId 
+        ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 }
+        : post
+    ));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -81,8 +101,13 @@ const Community = () => {
               <span className="text-lg sm:text-xl font-heading font-bold text-foreground">SochBox AI</span>
             </Link>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/creator">Dashboard</Link>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={toggleSidebar}
+                className="md:hidden"
+              >
+                <Menu className="w-5 h-5" />
               </Button>
               <div className="w-8 h-8 bg-gradient-primary rounded-full"></div>
             </div>
@@ -90,7 +115,67 @@ const Community = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-4xl">
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className={`
+          fixed inset-y-0 left-0 z-50 w-64 bg-card/95 backdrop-blur-sm border-r border-border/50 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}>
+          <nav className="p-4 sm:p-6 space-y-2">
+            <div className="flex items-center justify-between md:hidden mb-4">
+              <h2 className="text-lg font-semibold">Navigation</h2>
+              <Button variant="ghost" size="sm" onClick={toggleSidebar}>
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link to="/creator" onClick={() => isMobile && setSidebarOpen(false)}>
+                <LayoutDashboard className="w-4 h-4 mr-2" />
+                Dashboard
+              </Link>
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link to="/ideas" onClick={() => isMobile && setSidebarOpen(false)}>
+                <Lightbulb className="w-4 h-4 mr-2" />
+                Ideas
+              </Link>
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link to="/scripts" onClick={() => isMobile && setSidebarOpen(false)}>
+                <FileText className="w-4 h-4 mr-2" />
+                Scripts
+              </Link>
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link to="/thumbnails" onClick={() => isMobile && setSidebarOpen(false)}>
+                <ImageIcon className="w-4 h-4 mr-2" />
+                Thumbnails
+              </Link>
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link to="/analytics" onClick={() => isMobile && setSidebarOpen(false)}>
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Analytics
+              </Link>
+            </Button>
+            <Button variant="secondary" className="w-full justify-start">
+              <Users className="w-4 h-4 mr-2" />
+              Community
+            </Button>
+          </nav>
+        </aside>
+
+        {/* Overlay for mobile */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black/50 z-40 md:hidden" 
+            onClick={toggleSidebar}
+          />
+        )}
+
+        {/* Main Content */}
+        <div className="flex-1 p-6">
+          <div className="max-w-4xl mx-auto">
         {/* Page Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-2">Creator Community</h1>
@@ -169,7 +254,7 @@ const Community = () => {
         {/* Community Feed */}
         <div className="space-y-4 sm:space-y-6">
           {posts.map((post) => (
-            <Card key={post.id} className="shadow-card bg-gradient-card border-0">
+            <Card key={post.id} className="shadow-card bg-gradient-card border-0 hover:shadow-hover transition-all duration-200">
               <CardContent className="p-4 sm:p-6">
                 <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-start sm:space-x-4">
                   <Avatar className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
@@ -192,15 +277,20 @@ const Community = () => {
                     <p className="text-foreground mb-4 leading-relaxed text-sm sm:text-base">{post.content}</p>
                     
                     <div className="flex items-center space-y-0 space-x-4 sm:space-x-6">
-                      <Button variant="ghost" size="sm" className="h-8 px-2">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-8 px-2 hover:text-red-500 hover:bg-red-500/10 transition-colors"
+                        onClick={() => handleLike(post.id)}
+                      >
                         <Heart className={`w-4 h-4 mr-1 ${post.isLiked ? 'fill-red-500 text-red-500' : ''}`} />
                         <span className="text-sm">{post.likes}</span>
                       </Button>
-                      <Button variant="ghost" size="sm" className="h-8 px-2">
+                      <Button variant="ghost" size="sm" className="h-8 px-2 hover:text-primary hover:bg-primary/10 transition-colors">
                         <MessageCircle className="w-4 h-4 mr-1" />
                         <span className="text-sm">{post.comments}</span>
                       </Button>
-                      <Button variant="ghost" size="sm" className="h-8 px-2">
+                      <Button variant="ghost" size="sm" className="h-8 px-2 hover:text-primary hover:bg-primary/10 transition-colors">
                         <Share2 className="w-4 h-4 mr-1" />
                         <span className="text-sm">Share</span>
                       </Button>
@@ -217,6 +307,8 @@ const Community = () => {
           <Button variant="outline" size="lg" className="w-full sm:w-auto">
             Load More Posts
           </Button>
+        </div>
+          </div>
         </div>
       </div>
     </div>
