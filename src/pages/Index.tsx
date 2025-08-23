@@ -150,7 +150,7 @@ const Index = () => {
             <span className="font-semibold text-foreground">SochBox AI</span>
           </div>
           <p className="text-sm sm:text-caption text-muted-foreground">
-            © 2024 SochBox AI. Think. Create. Grow.
+            © 2025 SochBox AI. Think. Create. Grow.
           </p>
         </div>
       </footer>
