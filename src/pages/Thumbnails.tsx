@@ -155,9 +155,11 @@ const Thumbnails = () => {
                 <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Thumbnails</h1>
                 <p className="text-muted-foreground">Create and manage eye-catching thumbnails for your content</p>
               </div>
-              <Button className="shadow-glow w-full sm:w-auto">
-                <Plus className="w-4 h-4 mr-2" />
-                New Thumbnail
+              <Button className="shadow-glow w-full sm:w-auto" asChild>
+                <Link to="/new-thumbnail">
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Thumbnail
+                </Link>
               </Button>
             </div>
 

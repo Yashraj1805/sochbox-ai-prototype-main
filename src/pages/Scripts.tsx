@@ -148,9 +148,11 @@ const Scripts = () => {
                 <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Scripts</h1>
                 <p className="text-muted-foreground">Create, edit, and manage your video scripts</p>
               </div>
-              <Button className="shadow-glow w-full sm:w-auto">
-                <Plus className="w-4 h-4 mr-2" />
-                New Script
+              <Button className="shadow-glow w-full sm:w-auto" asChild>
+                <Link to="/new-script">
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Script
+                </Link>
               </Button>
             </div>
 

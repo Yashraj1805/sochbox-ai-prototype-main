@@ -140,9 +140,11 @@ const Ideas = () => {
                 <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Content Ideas</h1>
                 <p className="text-muted-foreground">Discover and manage your creative content ideas</p>
               </div>
-              <Button className="shadow-glow w-full sm:w-auto">
-                <Plus className="w-4 h-4 mr-2" />
-                New Idea
+              <Button className="shadow-glow w-full sm:w-auto" asChild>
+                <Link to="/new-idea">
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Idea
+                </Link>
               </Button>
             </div>
 

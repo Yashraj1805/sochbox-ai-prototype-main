@@ -9,6 +9,9 @@ import CreatorDashboard from "./pages/CreatorDashboard";
 import Ideas from "./pages/Ideas";
 import Scripts from "./pages/Scripts";
 import Thumbnails from "./pages/Thumbnails";
+import NewIdea from "./pages/NewIdea";
+import NewScript from "./pages/NewScript";
+import NewThumbnail from "./pages/NewThumbnail";
 import Analytics from "./pages/Analytics";
 import BrandDashboard from "./pages/BrandDashboard";
 import Campaigns from "./pages/Campaigns";
@@ -38,6 +41,9 @@ const App = () => (
             <Route path="/ideas" element={<Ideas />} />
             <Route path="/scripts" element={<Scripts />} />
             <Route path="/thumbnails" element={<Thumbnails />} />
+            <Route path="/new-idea" element={<NewIdea />} />
+            <Route path="/new-script" element={<NewScript />} />
+            <Route path="/new-thumbnail" element={<NewThumbnail />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/brand" element={<BrandDashboard />} />
             <Route path="/campaigns" element={<Campaigns />} />
